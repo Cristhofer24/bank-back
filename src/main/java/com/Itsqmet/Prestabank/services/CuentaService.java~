@@ -28,7 +28,7 @@ public class CuentaService implements CRUDEntity<Cuentas, Long> {
         }
 
         if (cuentas.getFkCliente() == null || cuentas.getFkCliente().getClienteId() == null) {
-            throw new CuentaException("La cuenta debe tener un cliente asociado");
+            throw new CuentaException("El cliente asociado a la cuenta es obligatorio");
         }
         // Buscar cliente en la base de datos
         Clientes cliente = clienteservice.read(cuentas.getFkCliente().getClienteId());

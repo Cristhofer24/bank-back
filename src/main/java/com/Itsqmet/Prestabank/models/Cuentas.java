@@ -39,7 +39,7 @@ public class Cuentas {
     //Cardinalidad con la entidad Cliente, R=1-n
 
     @ManyToOne
-    @JoinColumn(name = "FK_CLIENTE")
+    @JoinColumn(name = "FK_CLIENTE", nullable = false)
     private Clientes fkCliente;
 
     //Cardinalidad con la entidad Movimientos, R=1-n
