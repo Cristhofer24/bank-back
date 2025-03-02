@@ -2,6 +2,7 @@ package com.Itsqmet.Prestabank.globalException;
 
 import com.Itsqmet.Prestabank.exceptions.ClienteExceptions;
 import com.Itsqmet.Prestabank.exceptions.CuentaException;
+import com.Itsqmet.Prestabank.exceptions.MovimientoExceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,15 +21,13 @@ public class GlobalExceptionsHandler {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
 
-        /*@ExceptionHandler(TransaccionNotFoundException.class)
-        public ResponseEntity<String> handleTransaccionNotFound(TransaccionNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+
+         @ExceptionHandler(MovimientoExceptions.class)
+         public ResponseEntity<String> handleMovimientoNotFound(MovimientoExceptions e) {
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
 
-        @ExceptionHandler(IllegalArgumentException.class)
-        public ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }*/
+
     }
 
 

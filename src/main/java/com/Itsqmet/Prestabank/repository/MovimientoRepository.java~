@@ -1,4 +1,0 @@
-package com.Itsqmet.Prestabank.repository;
-
-public interface MovimientoRepository {
-}
