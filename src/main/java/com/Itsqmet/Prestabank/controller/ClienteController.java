@@ -25,7 +25,8 @@ public class ClienteController {
 
             Clientes createCliente = clienteservice.create(clientes);
             Map<String, Object> response = new HashMap<>();
-            response.put("message", "Cliente creado con éxito");
+             response.put("clienteId", createCliente.getClienteId());
+             response.put("message", "Cliente creado con éxito");
             return new ResponseEntity<>(response, HttpStatus.CREATED);
 
 
