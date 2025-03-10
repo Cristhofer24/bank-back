@@ -20,10 +20,16 @@ public class CuentaController {
     private CuentaService cuentaservice;
 
     @GetMapping("/ObtenerValores")
-    public String obtenerValores(@RequestParam String tipoCuenta) {
-            Cuentas cuentas = cuentaservice.generarValores()
+    public ResponseEntity<Cuentas> generarValoresCuenta(@RequestParam String tipoCuenta) {
+        Cuentas cuenta = new Cuentas();
+        cuenta.setTipoCuenta(tipoCuenta);
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        Clientes cliente = new Clientes();
+        cuenta.setFkCliente(cliente);
+
+        cuenta = cuentaservice.generarValores(cuenta);
+
+        return ResponseEntity.ok(cuenta);
     }
 
 
