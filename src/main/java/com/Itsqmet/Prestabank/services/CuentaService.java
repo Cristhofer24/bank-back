@@ -34,11 +34,24 @@ public class CuentaService implements CRUDEntity<Cuentas, Long> {
         Clientes cliente = clienteservice.read(cuentas.getFkCliente().getClienteId());
         // Asignar el cliente persistente a la cuenta
         cuentas.setFkCliente(cliente);
-        cuentas.setNumeroCuenta(numeroCuentaAleatorio.generarNumeroCuentaAleatoria(cuentas.getTipoCuenta()));
-        cuentas.setFechaApertura(LocalDate.now());
-        cuentas.setFechaCaducidad(LocalDate.now().plusYears(3));
-        cuentas.setEstado("ACTIVO");
+
+        cuentas = generarValores(cuentas);
         return cuentarepository.save(cuentas);
+    }
+
+
+    //Generar los valores de una cuenta
+    public Cuentas generarValores(Cuentas cuentas) {
+        if (cuentas.getTipoCuenta() !=null){
+
+            cuentas.setNumeroCuenta(numeroCuentaAleatorio.generarNumeroCuentaAleatoria(cuentas.getTipoCuenta()));
+            cuentas.setFechaApertura(LocalDate.now());
+            cuentas.setFechaCaducidad(LocalDate.now().plusYears(3));
+            cuentas.setEstado("ACTIVO");
+
+        }
+
+        return cuentas;
     }
 
     @Override

@@ -10,4 +10,8 @@ public class NumeroCuentaAleatorio {
         String numeroCuenta = prefijo + String.format("%06d",(int)(Math.random()*1000000));
         return numeroCuenta;
     }
+
+
+
+
 }
