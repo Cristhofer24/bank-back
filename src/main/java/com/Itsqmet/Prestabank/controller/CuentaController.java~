@@ -2,13 +2,11 @@ package com.Itsqmet.Prestabank.controller;
 
 import com.Itsqmet.Prestabank.models.Clientes;
 import com.Itsqmet.Prestabank.models.Cuentas;
-import com.Itsqmet.Prestabank.models.DTOClienteCuenta;
 import com.Itsqmet.Prestabank.services.CuentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -44,6 +42,8 @@ public class CuentaController {
         return ResponseEntity.ok(cuenta);
     }
 
+    //Traer los DTO de las cuentas
+    @GetMapping("/ObtenerCuentas")
 
 
 

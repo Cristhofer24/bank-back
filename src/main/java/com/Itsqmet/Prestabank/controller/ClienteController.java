@@ -29,7 +29,6 @@ public class ClienteController {
              response.put("message", "Cliente creado con éxito");
             return new ResponseEntity<>(response, HttpStatus.CREATED);
 
-
     }
 
 }

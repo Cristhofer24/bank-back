@@ -47,5 +47,11 @@ public class ClienteService implements CRUDEntity<Clientes, Long> {
     }
 
 
+    @Service
+    public static class ClienteCuentaService {
 
+
+
+
+    }
 }

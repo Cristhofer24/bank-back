@@ -36,7 +36,7 @@ public class CuentaService implements CRUDEntity<Cuentas, Long> {
         // Asignar el cliente persistente a la cuenta
         cuentas.setFkCliente(cliente);
 
-        cuentas = generarValores(cuentas);
+
         return cuentarepository.save(cuentas);
     }
 

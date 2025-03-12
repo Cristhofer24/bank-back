@@ -19,7 +19,7 @@ public class Cuentas {
     @Column(name = "TIPOCUENTA")
     private String tipoCuenta;
 
-    @Column(name = "NUMEROCUENTA", unique = true)
+    @Column(name = "NUEMROCUENTA", unique = true)
     private String numeroCuenta;
 
     @Column(name = "SALDO")
