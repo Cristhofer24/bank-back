@@ -12,6 +12,7 @@ import java.util.Date;
 
 public class DTOClienteCuenta {
     //Informacion de la cuenta
+    private Long cuentaId;
     private String tipoCuenta;
     private String numeroCuenta;
     private BigDecimal saldo;
@@ -22,6 +23,7 @@ public class DTOClienteCuenta {
     private String estado;
 
     //Informacion del cliente
+    private Long clienteId;
     private String cedula;
     private String nombre;
     private String correo;
@@ -128,5 +130,21 @@ public class DTOClienteCuenta {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public Long getCuentaId() {
+        return cuentaId;
+    }
+
+    public void setCuentaId(Long cuentaId) {
+        this.cuentaId = cuentaId;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 }

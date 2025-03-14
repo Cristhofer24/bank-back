@@ -1,7 +1,6 @@
 package com.Itsqmet.Prestabank.controller;
 
 import com.Itsqmet.Prestabank.models.Clientes;
-import com.Itsqmet.Prestabank.models.Cuentas;
 import com.Itsqmet.Prestabank.models.DTOClienteCuenta;
 import com.Itsqmet.Prestabank.models.Movimientos;
 import com.Itsqmet.Prestabank.services.MovimientoService;
@@ -39,15 +38,6 @@ public class MovimientoController {
     public ResponseEntity<Movimientos> MovimientoReciente(@RequestParam("id") Long id) {
         Movimientos movimiento = movimientoService.ObtenerMovimientosRecientes(id);
         return ResponseEntity.ok(movimiento);
-    }
-
-    @GetMapping("/all")
-
-    public ResponseEntity<Object> getAllMovimientos() {
-
-        List<Movimientos> movimientos = movimientoService.getAllMovimientos();
-        return new ResponseEntity<>(movimientos, HttpStatus.OK);
-
     }
 
 

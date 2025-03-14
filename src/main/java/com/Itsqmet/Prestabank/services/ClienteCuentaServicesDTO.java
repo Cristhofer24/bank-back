@@ -23,6 +23,12 @@ public class ClienteCuentaServicesDTO {
         return null;
     }
 
+    public List<DTOClienteCuenta> EncontrarCuentas(Long id) {
+        List<Object[]> datos = clienteRepository.EncontrarCuentasporId(id);
+
+        return datos.stream().map(this::ObtnerDatos).toList();
+    }
+
     //Extraccion de Datos
 
     private DTOClienteCuenta ObtnerDatos(Object[] datos){
@@ -37,7 +43,8 @@ public class ClienteCuentaServicesDTO {
         if (datos.length>3) dto.setCedula((String) datos[3]);
         if (datos.length>4) dto.setSaldo((BigDecimal) datos[4]);
         if (datos.length>5) dto.setTipoCuenta((String) datos[5]);
-
+        if (datos.length>6) dto.setClienteId((Long) datos[6]);
+        if (datos.length>7) dto.setCuentaId((Long) datos[7]);
         return dto;
 
     }

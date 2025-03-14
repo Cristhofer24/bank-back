@@ -1,0 +1,53 @@
+package com.Itsqmet.Prestabank.controller;
+
+import com.Itsqmet.Prestabank.models.Usuarios;
+import com.Itsqmet.Prestabank.services.UserServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+
+@RestController
+@RequestMapping("/api/user")
+public class UserController {
+    @Autowired
+    private UserServices userServices;
+
+    @PostMapping("/crear")
+    public Usuarios createUser(@RequestBody Usuarios user) {
+        return userServices.createUser(user);
+    }
+
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody Usuarios auth) {
+//
+//        if (auth.getUsername() == null || auth.getPassword() == null) {
+//
+//            return ResponseEntity.status(401).body("Datos incompletos o nulos");
+//        }
+//
+//
+//        boolean isAuthenticated = userServices.authenticateUser(auth);
+//        String role = userServices.getRol(auth.getUsername());
+//
+//
+//        if (isAuthenticated) {
+//
+//            return ResponseEntity.ok(new HashMap() {{
+//                put("message", "Login exitoso");
+//                put("role", role);
+//            }});
+//
+//        } else {
+//
+//            return ResponseEntity.status(401).body("Credenciales inválidas");
+//        }
+//
+//
+//    }
+
+}

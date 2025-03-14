@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteService implements CRUDEntity<Clientes, Long> {
@@ -30,7 +31,7 @@ public class ClienteService implements CRUDEntity<Clientes, Long> {
     }
 
     public List<Clientes> getAllClientes(){
-        return repository.findAll();
+        return repository.findAll().stream().distinct().collect(Collectors.toList());
     }
 
     @Override
@@ -47,11 +48,5 @@ public class ClienteService implements CRUDEntity<Clientes, Long> {
     }
 
 
-    @Service
-    public static class ClienteCuentaService {
 
-
-
-
-    }
 }

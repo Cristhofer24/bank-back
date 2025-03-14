@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/clienteCuenta")
 public class DTOCuentaClienteController {
@@ -19,6 +21,12 @@ public class DTOCuentaClienteController {
     @GetMapping("/ObtenerCuentas")
     public ResponseEntity<DTOClienteCuenta> ExtraccionDatos(@RequestParam("id") Long id) {
         DTOClienteCuenta informacion = clienteCuentaServicesDTO.EncontrarCuentaReciente(id);
+        return ResponseEntity.ok(informacion);
+    }
+
+    @GetMapping("/ObtenerCuentasTodos")
+    public ResponseEntity<List<DTOClienteCuenta>> ExtraccionDatosTodos(@RequestParam("id") Long id) {
+        List<DTOClienteCuenta> informacion = clienteCuentaServicesDTO.EncontrarCuentas(id);
         return ResponseEntity.ok(informacion);
     }
 

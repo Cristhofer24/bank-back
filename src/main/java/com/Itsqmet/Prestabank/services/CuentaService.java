@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CuentaService implements CRUDEntity<Cuentas, Long> {
     @Autowired
@@ -44,11 +46,9 @@ public class CuentaService implements CRUDEntity<Cuentas, Long> {
     //Generar los valores de una cuenta
     public Cuentas generarValores(Cuentas cuentas) {
         if (cuentas.getTipoCuenta() !=null){
-
             cuentas.setNumeroCuenta(numeroCuentaAleatorio.generarNumeroCuentaAleatoria(cuentas.getTipoCuenta()));
             cuentas.setFechaApertura(LocalDate.now());
             cuentas.setFechaCaducidad(LocalDate.now().plusYears(3));
-
             cuentas.setEstado("ACTIVO");
 
         }
@@ -62,7 +62,7 @@ public class CuentaService implements CRUDEntity<Cuentas, Long> {
     }
 
     public List<Cuentas> getAllCuentas() {
-        return cuentarepository.findAll();
+        return cuentarepository.findAll().stream().distinct().collect(Collectors.toList());
     }
 
     @Override

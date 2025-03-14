@@ -1,5 +1,6 @@
 package com.Itsqmet.Prestabank.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,10 +19,12 @@ public class Expedientes {
     //relacion de muchos a muchos con cliente y ascesor
     @ManyToOne
     @JoinColumn(name = "FK_CLIENTE")
+    @JsonBackReference
     private Clientes fkClientes;
 
     @ManyToOne
     @JoinColumn(name = "FK_ASESOR")
+    @JsonBackReference
     private Asesores fkAsesor;
 
     //getters y setters

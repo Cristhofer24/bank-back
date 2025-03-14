@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,6 +32,7 @@ public class CuentaController {
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Cuenta creada con éxito");
 
+
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -42,6 +44,15 @@ public class CuentaController {
         cuenta = cuentaservice.generarValores(cuenta);
 
         return ResponseEntity.ok(cuenta);
+    }
+
+    @GetMapping("/all")
+
+    public ResponseEntity<Object> getAllCuentas() {
+
+        List<Cuentas> clientes = cuentaservice.getAllCuentas();
+        return new ResponseEntity<>(clientes, HttpStatus.OK);
+
     }
 
 

@@ -19,8 +19,7 @@ public interface ClienteRepository extends JpaRepository<Clientes, Long> {
             "tcl.cedula, " +  // Index 3
             "tc.saldo, " + // Index 4
             "tc.tipocuenta, " +// Index 5
-            "tcl.clienteid, " +// Index 6
-            "tc.cuentaid " +//7
+            "tcl.clienteid " + // Index 6
             "FROM tcuentas tc " +
             "JOIN tclientes tcl ON tcl.clienteid = tc.fk_cliente " +
             "WHERE tcl.clienteid = :id " +

@@ -1,5 +1,6 @@
 package com.Itsqmet.Prestabank.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,10 +38,12 @@ public class Clientes {
 
     //cardinalidad 1 a varios con Cuenta
     @OneToMany(mappedBy = "fkCliente")
+    @JsonManagedReference
     private List<Cuentas> cuentas;
 
     //cardinalidad variosa varios con Expediente
     @OneToMany(mappedBy = "fkClientes")
+    @JsonManagedReference
     private List<Expedientes> expediente;
 
     //getters and setters

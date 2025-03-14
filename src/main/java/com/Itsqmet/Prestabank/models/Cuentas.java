@@ -1,5 +1,8 @@
 package com.Itsqmet.Prestabank.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -40,10 +43,12 @@ public class Cuentas {
 
     @ManyToOne
     @JoinColumn(name = "FK_CLIENTE", nullable = false)
+    @JsonBackReference
     private Clientes fkCliente;
 
     //Cardinalidad con la entidad Movimientos, R=1-n
     @OneToMany(mappedBy = "fkCuenta")
+    @JsonManagedReference
     private List<Movimientos> movimientos;
 
     //getters y setters

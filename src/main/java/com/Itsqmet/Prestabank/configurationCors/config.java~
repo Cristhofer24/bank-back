@@ -1,0 +1,30 @@
+package com.Itsqmet.Prestabank.configurationCors;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class Config  {  // Cambia WebSecurityConfiguration por WebSecurityConfigurerAdapter
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();  // Configurar el PasswordEncoder
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // Configuración para permitir acceso público a la creación de usuarios
+        http.csrf().disable()  // Desactivar CSRF si no es necesario
+                .authorizeRequests()
+                .antMatchers("/api/user/crear").permitAll()  // Permitir acceso a la creación de usuarios sin autenticación
+                .anyRequest().authenticated();  // Requerir autenticación para otras rutas
+        return http.build();  // Finaliza la configuración y la retorna
+    }
+}

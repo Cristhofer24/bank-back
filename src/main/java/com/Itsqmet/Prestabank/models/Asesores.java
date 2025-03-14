@@ -1,5 +1,6 @@
 package com.Itsqmet.Prestabank.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class Asesores {
 
     //Relacion de varios a varios con Expedientes
     @OneToMany(mappedBy = "fkAsesor")
+    @JsonManagedReference
     private List<Expedientes> expediente;
 
     //Getters y setters

@@ -2,6 +2,7 @@ package com.Itsqmet.Prestabank.services;
 
 import com.Itsqmet.Prestabank.exceptions.MovimientoExceptions;
 import com.Itsqmet.Prestabank.models.Cuentas;
+import com.Itsqmet.Prestabank.models.DTOClienteCuenta;
 import com.Itsqmet.Prestabank.models.Movimientos;
 import com.Itsqmet.Prestabank.repository.CuentaRepository;
 import com.Itsqmet.Prestabank.repository.MovimientoRepository;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MovimientoService implements CRUDEntity<Movimientos,Long> {
@@ -25,7 +28,7 @@ public class MovimientoService implements CRUDEntity<Movimientos,Long> {
     public Movimientos create(Movimientos entity) {
         Cuentas cuentaOrigen = cuentaRepository.findByNumeroCuenta(entity.getCuentaOrigen());
         Cuentas cuentaDestino = cuentaRepository.findByNumeroCuenta(entity.getCuentaDestino());
-       if(entity.getMonto().compareTo(BigDecimal.ZERO)<=0){
+       if( entity.getMonto() == null || entity.getMonto().compareTo(BigDecimal.ZERO)<=0){
            throw new MovimientoExceptions("El monto debe ser mayor a 0");
        }
 
@@ -36,6 +39,7 @@ public class MovimientoService implements CRUDEntity<Movimientos,Long> {
        if("DEPOSITO".equalsIgnoreCase(entity.getTipoMovimiento())){
            cuentaOrigen.setSaldo(cuentaOrigen.getSaldo().add(entity.getMonto()));
            entity.setCuentaDestino(cuentaOrigen.getNumeroCuenta());
+           entity.setDescripcion("Deposito satisfactorio");
        }
 
        if("RETIRO".equalsIgnoreCase(entity.getTipoMovimiento())){
@@ -44,6 +48,7 @@ public class MovimientoService implements CRUDEntity<Movimientos,Long> {
            }
            cuentaOrigen.setSaldo(cuentaOrigen.getSaldo().subtract(entity.getMonto()));
            entity.setCuentaDestino(cuentaOrigen.getNumeroCuenta());
+           entity.setDescripcion("Retiro satisfactorio");
        }
 
        if("TRANSFERENCIA".equalsIgnoreCase(entity.getTipoMovimiento())){
@@ -60,7 +65,7 @@ public class MovimientoService implements CRUDEntity<Movimientos,Long> {
            entity.setCuentaDestino(cuentaDestino.getNumeroCuenta());
        }
 
-       if ("PAGO".equalsIgnoreCase(entity.getTipoMovimiento())) {
+       if ("PAGOS".equalsIgnoreCase(entity.getTipoMovimiento())) {
            if (cuentaOrigen.getSaldo().compareTo(entity.getMonto()) < 0) {
                throw new MovimientoExceptions("El monto es mayor al saldo de la cuenta");
            }
@@ -73,6 +78,25 @@ public class MovimientoService implements CRUDEntity<Movimientos,Long> {
        entity.setFkCuenta(cuentaOrigen);
 
         return movimientoRepository.save(entity);
+    }
+
+    public List<Movimientos> obtenerTodosMovimietos(Long id){
+        List<Object[]> obtm = movimientoRepository.obtenerMovimientosporfk(id);
+        return obtm.stream().map(this::ObtnerDatos).toList();
+    }
+
+    public Movimientos ObtenerMovimientosRecientes(Long id) {
+        List<Object[]>  mov = movimientoRepository.obtenerMovimientosreciente(id);
+
+        if(!mov.isEmpty()){
+            return ObtnerDatos(mov.get(0));
+        }
+        return null;
+    }
+
+
+    public List<Movimientos> getAllMovimientos() {
+        return movimientoRepository.findAll().stream().distinct().collect(Collectors.toList());
     }
 
     @Override
@@ -89,4 +113,20 @@ public class MovimientoService implements CRUDEntity<Movimientos,Long> {
     public void delete(Long aLong) {
 
     }
+
+    private Movimientos ObtnerDatos(Object[] datos){
+        Movimientos dto = new Movimientos();
+
+        if (datos.length>0) dto.setDescripcion((String) datos[0]);
+
+        if (datos.length>1) dto.setMonto((BigDecimal) datos[1]);
+        if (datos.length>2 && datos[2] instanceof java.sql.Date){
+            java.sql.Date fmovimiento = (java.sql.Date) datos[2];
+            dto.setFechaMovimiento(fmovimiento.toLocalDate());
+        }
+        return dto;
+
+    }
+
+
 }
